@@ -50,9 +50,8 @@ function returnConsole() {
   // for (const [key, value] of Object.entries(inputObject)) {
   //   console.log(`${key}: ${value}`);
   // }
-
-  let entries = Object.entries(inputObject);
-  entries.map(([index, item]) => console.log(index, item));
+  // let entries = Object.entries(inputObject);
+  // entries.map(([index, item]) => console.log(index, item));
 }
 
 const inputObject = {
