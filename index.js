@@ -40,34 +40,24 @@ buttonSend.addEventListener("click", (e) => {
 });
 
 function returnConsole() {
-  // console.log(
-  //   `Анкета: ${selectRad()} Имя: ${form.name.value}, Телефон: ${
-  //     form.phone.value
-  //   }, Email: ${form.email.value}, Интересует: ${
-  //     form.selectDesign.value
-  //   }, Локация: ${form.selectLocation.value}, Сообщение: ${form.message.value}`
-  // );
-  // for (const [key, value] of Object.entries(inputObject)) {
-  //   console.log(`${key}: ${value}`);
-  // }
+  const inputObject = {
+    name: formRequest.name.value,
+    phone: inputTel.value,
+    email: formRequest.email.value,
+    design: formRequest.selectDesign.value,
+    location: formRequest.selectLocation.value,
+    message: formRequest.message.value,
+    method: selectRad(),
+  };
+
   let entries = Object.entries(inputObject);
   entries.map(([index, item]) => console.log(index, item));
 }
 
-const inputObject = {
-  name: formRequest.name.value,
-  phone: formRequest.phone.value,
-  email: formRequest.email.value,
-  design: formRequest.selectDesign.value,
-  location: formRequest.selectLocation.value,
-  message: formRequest.message.value,
-  method: selectRad(),
-};
-
-function saveForm(formNode) {
-  return new FormData(formNode); //иной способ выводы формы в консоль
-}
-console.log(saveForm(formRequest));
+// function saveForm(formNode) {
+//   return new FormData(formNode); //иной способ выводы формы в консоль
+// }
+// console.log(saveForm(formRequest));
 
 function selectRad() {
   return Array.from(radInputs)
