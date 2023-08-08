@@ -50,8 +50,8 @@ function returnConsole() {
   // for (const [key, value] of Object.entries(inputObject)) {
   //   console.log(`${key}: ${value}`);
   // }
-  // let entries = Object.entries(inputObject);
-  // entries.map(([index, item]) => console.log(index, item));
+  let entries = Object.entries(inputObject);
+  entries.map(([index, item]) => console.log(index, item));
 }
 
 const inputObject = {
@@ -64,10 +64,10 @@ const inputObject = {
   method: selectRad(),
 };
 
-// function saveForm(formNode) {
-//   return new FormData(formNode);
-// }
-// console.log(saveForm(formRequest));
+function saveForm(formNode) {
+  return new FormData(formNode); //иной способ выводы формы в консоль
+}
+console.log(saveForm(formRequest));
 
 function selectRad() {
   return Array.from(radInputs)
