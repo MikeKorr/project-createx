@@ -66,12 +66,12 @@ function getRadioInput() {
 
 const KEY_SLASH = 47;
 const KEY_COLON = 58;
+const additionalCode = 3;
+const numberPlace = 5;
+const phoneDelete = -1;
 
 const phoneMask = (event) => {
   const { target, keyCode, type } = event;
-
-  const pos = target.selectionStart;
-  if (pos < 3) event.preventDefault();
   const matrix = "+7 (___) ___-__-__";
   let i = 0;
   const def = matrix.replace(/\D/g, "");
@@ -80,8 +80,8 @@ const phoneMask = (event) => {
     i < val.length ? val[i++] || def[i] : a
   );
   i = newValue.indexOf("_");
-  if (i !== -1) {
-    i < 5 && (i = 3);
+  if (i !== phoneDelete) {
+    i < numberPlace && (i = additionalCode);
     newValue = newValue.slice(0, i);
   }
   let reg = matrix

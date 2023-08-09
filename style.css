@@ -8,12 +8,6 @@ body {
   font-family: "Ubuntu", sans-serif, Arial;
 }
 
-@media (max-width: 768px) {
-  body {
-    max-width: 390px;
-  }
-}
-
 header {
   height: 600px;
   background-image: url(./images/header-right.png);
@@ -379,10 +373,6 @@ main {
   padding: 12px 16px;
 }
 
-.contact__input:hover {
-  cursor: pointer;
-}
-
 .input__border {
   border: 2px solid #dadbdd;
   border-radius: 4px;
@@ -460,19 +450,33 @@ input[type="checkbox"] {
 label[for="agree"]::before {
   content: "";
   display: inline-block;
-  width: 16px;
+  width: 30px;
   height: 16px;
   vertical-align: middle;
-
+  margin-top: 2px;
   margin-right: 8px;
-  margin-bottom: 15px;
   border: 1px solid #ff5a30;
   border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  label[for="agree"]::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-top: 2px;
+    margin-right: 8px;
+    border: 1px solid #ff5a30;
+    border-radius: 5px;
+  }
 }
 
 input[type="checkbox"]:checked + label::before {
   content: "";
   background-image: url(./images/checkbox.png);
+  background-repeat: no-repeat;
 }
 
 input[type="radio"] {
@@ -524,7 +528,7 @@ input[type="radio"]:checked + label::before {
 }
 
 .contact__button-agree {
-  max-width: 315px;
+  max-width: 320px;
   display: flex;
   align-items: center;
 }
@@ -558,7 +562,7 @@ input[type="radio"]:checked + label::before {
     color: #ffffff;
     font-size: 14px;
 
-    margin: 0 20px 0 0;
+    margin: 0 25px 0 0;
   }
 }
 
@@ -601,18 +605,31 @@ input[type="radio"]:checked + label::before {
     color: #ffffff;
     font-size: 14px;
 
-    margin: 0 20px 0 0;
+    margin: 0 25px 0 0;
+  }
+}
+
+.contact__label-agree {
+  display: flex;
+  width: 295px;
+}
+
+@media (max-width: 768px) {
+  .contact__label-agree {
+    display: flex;
+    width: 135px;
   }
 }
 
 .contact__text-agree {
+  display: flex;
   font-size: 16px;
   color: #424551;
 }
 
 @media (max-width: 768px) {
   .contact__text-agree {
-    width: 100px;
+    width: 120px;
     font-size: 10px;
   }
 }
@@ -627,10 +644,6 @@ textarea {
   background-color: #f4f5f6;
   font-size: 16px;
   resize: none;
-}
-
-textarea:hover {
-  cursor: pointer;
 }
 
 button {
@@ -915,10 +928,6 @@ footer {
   border: 2px solid #787a80;
   margin: 24px 12px 0 0;
   padding: 0 0 0 16px;
-}
-
-.footer__input:hover {
-  cursor: pointer;
 }
 
 @media (max-width: 768px) {
