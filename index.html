@@ -11,13 +11,16 @@
       <section class="header">
         <div class="header__navbar">
           <img src="./images/logo_header.png" class="logo" alt="CREATEX" />
+          <button class="header__burger-btn">
+            <span></span><span></span><span></span>
+          </button>
           <nav class="header__links">
             <a class="header__link">Services</a>
             <a class="header__link" id="work">Work</a>
             <a class="header__link">News</a>
             <a class="header__link" id="contacts">Contacts</a>
           </nav>
-          <div class="flexbox">
+          <div class="header__flexbox">
             <img class="header_img" src="./images/iPhone.png" alt="Phone" />
             <div class="header__contact">
               <span>Call us</span>
@@ -138,9 +141,11 @@
                     name="method"
                     value="Email"
                     class="contact__radio"
-                    id="email"
+                    id="email-input"
                   />
-                  <label for="email" class="contact__radio-box">Email</label>
+                  <label for="email-input" class="contact__radio-box"
+                    >Email</label
+                  >
 
                   <input
                     type="radio"
@@ -184,11 +189,13 @@
       </section>
       <section class="offices" id="offices">
         <div class="offices__box">
-          <h2 class="title">Our offices</h2>
-          <h4 class="contact__subtitle">
-            Give us a call, send us a note or visit our office. We can’t wait to
-            hear from you!
-          </h4>
+          <div class="contact__name">
+            <h2 class="title">Our offices</h2>
+            <h4 class="contact__subtitle">
+              Give us a call, send us a note or visit our office. We can’t wait
+              to hear from you!
+            </h4>
+          </div>
           <div class="offices__addresses">
             <div class="offices__address">
               <h2 class="offices__address-city">New York, USA</h2>

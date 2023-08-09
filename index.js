@@ -1,71 +1,73 @@
 const formRequest = document.getElementById("formInputs");
-const buttonSend = document.querySelector(".contact__request");
-const radInputs = formRequest.querySelectorAll('input[name="method"]');
-const selectInputs = formRequest.querySelectorAll('option[name="Design"]');
+const buttonSendRequest = document.querySelector(".contact__request");
+const radioInput = formRequest.querySelectorAll('input[name="method"]');
+const selectorInputs = formRequest.querySelectorAll('option[name="Design"]');
 const selectorDesign = document.getElementById("select-box");
-const buttonAgr = formRequest.querySelector(".contact__button-check");
-const workSelector = document.getElementById("work");
-const contactsSelector = document.getElementById("contacts");
-const officesLocation = document.getElementById("offices");
-const contactLocation = document.getElementById("cont");
-const buttonGtt = document.getElementById("gtt");
-const headerLocation = document.getElementById("header");
+const buttonAgreement = formRequest.querySelector(".contact__button-check");
+const workMenuLink = document.getElementById("work");
+const contactMenuLink = document.getElementById("contacts");
+const officesPageLocation = document.getElementById("offices");
+const contactPageLocation = document.getElementById("cont");
+const buttonGoToTop = document.getElementById("gtt");
+const headerPageLocation = document.getElementById("header");
 const footerForm = document.getElementById("footerForm");
-const buttonSub = document.querySelector(".footer__sub");
+const buttonSubscribe = document.querySelector(".footer__sub");
+const menuButton = document.querySelector(".header__burger-btn");
+const menuLinks = document.querySelector(".header__links");
+const inputPhone = document.getElementById("tel");
 
-workSelector.addEventListener("click", () => {
-  officesLocation.scrollIntoView({ behavior: "smooth" });
+menuButton.addEventListener("click", () => {
+  menuLinks.classList.toggle("header__links-open");
 });
 
-contactsSelector.addEventListener("click", () => {
-  contactLocation.scrollIntoView({ behavior: "smooth" });
+workMenuLink.addEventListener("click", () => {
+  officesPageLocation.scrollIntoView({ behavior: "smooth" });
 });
 
-buttonGtt.addEventListener("click", () => {
-  headerLocation.scrollIntoView({ behavior: "smooth" });
+contactMenuLink.addEventListener("click", () => {
+  contactPageLocation.scrollIntoView({ behavior: "smooth" });
 });
 
-buttonSend.disabled = true;
-buttonAgr.addEventListener("click", () => {
-  if (buttonAgr.checked) {
-    buttonSend.disabled = false;
-  } else if (!buttonAgr.checked) buttonSend.disabled = true;
+buttonGoToTop.addEventListener("click", () => {
+  headerPageLocation.scrollIntoView({ behavior: "smooth" });
 });
 
-buttonSend.addEventListener("click", (e) => {
+buttonSendRequest.disabled = true;
+buttonAgreement.addEventListener("click", () => {
+  if (buttonAgreement.checked) {
+    buttonSendRequest.disabled = false;
+  } else if (!buttonAgreement.checked) buttonSendRequest.disabled = true;
+});
+
+buttonSendRequest.addEventListener("click", (e) => {
   e.preventDefault();
-  if (buttonAgr.checked) {
-    returnConsole();
+  if (buttonAgreement.checked) {
+    getContactUsFormData();
   }
 });
 
-function returnConsole() {
-  const inputObject = {
+function getContactUsFormData() {
+  console.log({
     name: formRequest.name.value,
-    phone: inputTel.value,
+    phone: inputPhone.value,
     email: formRequest.email.value,
     design: formRequest.selectDesign.value,
     location: formRequest.selectLocation.value,
     message: formRequest.message.value,
-    method: selectRad(),
-  };
-
-  let entries = Object.entries(inputObject);
-  entries.map(([index, item]) => console.log(index, item));
+    method: getRadioInput(),
+  });
 }
 
-// function saveForm(formNode) {
-//   return new FormData(formNode); //иной способ выводы формы в консоль
-// }
-// console.log(saveForm(formRequest));
-
-function selectRad() {
-  return Array.from(radInputs)
+function getRadioInput() {
+  return Array.from(radioInput)
     .filter((e) => e.checked)
     .map((item) => item.value);
 }
 
-const mask = (event) => {
+const KEY_SLASH = 47;
+const KEY_COLON = 58;
+
+const phoneMask = (event) => {
   const { target, keyCode, type } = event;
 
   const pos = target.selectionStart;
@@ -90,23 +92,21 @@ const mask = (event) => {
   if (
     !reg.test(target.value) ||
     target.value.length < 5 ||
-    (keyCode > 47 && keyCode < 58)
+    (keyCode > KEY_SLASH && keyCode < KEY_COLON)
   ) {
     target.value = newValue;
   }
   if (type === "blur" && target.value.length < 5) target.value = "";
 };
 
-const inputTel = document.getElementById("tel");
-
-if (inputTel.type === "tel") {
-  inputTel.addEventListener("input", mask);
-  inputTel.addEventListener("focus", mask);
-  inputTel.addEventListener("blur", mask);
-  inputTel.addEventListener("keydown", mask);
+if (inputPhone.type === "tel") {
+  inputPhone.addEventListener("input", phoneMask);
+  inputPhone.addEventListener("focus", phoneMask);
+  inputPhone.addEventListener("blur", phoneMask);
+  inputPhone.addEventListener("keydown", phoneMask);
 }
 
-buttonSub.addEventListener("click", (e) => {
+buttonSubscribe.addEventListener("click", (e) => {
   e.preventDefault();
   console.log(footerForm.footerInput.value);
 });
