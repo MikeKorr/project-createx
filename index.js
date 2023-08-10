@@ -14,7 +14,7 @@ const footerForm = document.getElementById("footerForm");
 const buttonSubscribe = document.querySelector(".footer__sub");
 const menuButton = document.querySelector(".header__burger-btn");
 const menuLinks = document.querySelector(".header__links");
-const inputPhone = document.getElementById("tel");
+const inputPhone = document.getElementById("telInp");
 
 menuButton.addEventListener("click", () => {
   menuLinks.classList.toggle("header__links-open");
@@ -33,17 +33,11 @@ buttonGoToTop.addEventListener("click", () => {
 });
 
 buttonSendRequest.disabled = true;
+
 buttonAgreement.addEventListener("click", () => {
   if (buttonAgreement.checked) {
     buttonSendRequest.disabled = false;
   } else if (!buttonAgreement.checked) buttonSendRequest.disabled = true;
-});
-
-buttonSendRequest.addEventListener("click", (e) => {
-  e.preventDefault();
-  if (buttonAgreement.checked) {
-    getContactUsFormData();
-  }
 });
 
 function getContactUsFormData() {
@@ -70,40 +64,37 @@ const additionalCode = 3;
 const numberPlace = 5;
 const phoneDelete = -1;
 
-const phoneMask = (event) => {
+const initPhoneMask = (event) => {
   const { target, keyCode, type } = event;
-  const matrix = "+7 (___) ___-__-__";
-  let i = 0;
-  const def = matrix.replace(/\D/g, "");
+  const phoneMask = "+7 (___) ___-__-__";
+  let index = 0;
+  const def = phoneMask.replace(/\D/g, "");
   const val = target.value.replace(/\D/g, "");
-  let newValue = matrix.replace(/[_\d]/g, (a) =>
-    i < val.length ? val[i++] || def[i] : a
+  let newValue = phoneMask.replace(/[_\d]/g, (a) =>
+    index < val.length ? val[index++] || def[index] : a
   );
-  i = newValue.indexOf("_");
-  if (i !== phoneDelete) {
-    i < numberPlace && (i = additionalCode);
-    newValue = newValue.slice(0, i);
+  index = newValue.indexOf("_");
+  if (index !== phoneDelete) {
+    index < numberPlace && (index = additionalCode);
+    newValue = newValue.slice(0, index);
   }
-  let reg = matrix
+  let reg = phoneMask
     .substring(0, target.value.length)
     .replace(/_+/g, (a) => `\\d{1,${a.length}}`)
     .replace(/[+()]/g, "\\$&");
   reg = new RegExp(`^${reg}$`);
-  if (
-    !reg.test(target.value) ||
-    target.value.length < 5 ||
-    (keyCode > KEY_SLASH && keyCode < KEY_COLON)
-  ) {
+  const isDigitInterval = keyCode > KEY_SLASH && keyCode < KEY_COLON;
+  if (!reg.test(target.value) || target.value.length < 5 || isDigitInterval) {
     target.value = newValue;
   }
   if (type === "blur" && target.value.length < 5) target.value = "";
 };
 
 if (inputPhone.type === "tel") {
-  inputPhone.addEventListener("input", phoneMask);
-  inputPhone.addEventListener("focus", phoneMask);
-  inputPhone.addEventListener("blur", phoneMask);
-  inputPhone.addEventListener("keydown", phoneMask);
+  inputPhone.addEventListener("input", initPhoneMask);
+  inputPhone.addEventListener("focus", initPhoneMask);
+  inputPhone.addEventListener("blur", initPhoneMask);
+  inputPhone.addEventListener("keydown", initPhoneMask);
 }
 
 buttonSubscribe.addEventListener("click", (e) => {
@@ -112,16 +103,6 @@ buttonSubscribe.addEventListener("click", (e) => {
 });
 
 //валидация
-const spanRad = document.getElementById("radErr");
-function errorRadioInputs() {
-  radioInput.forEach((input) => {
-    if (!input.checked) {
-      spanRad.textContent = input.validationMessage;
-    } else {
-      spanRad.textContent = "";
-    }
-  });
-}
 
 function showError(input, errorMessage) {
   const spanId = `error-${input.id}`;
@@ -137,12 +118,10 @@ function hideError(input) {
   input.classList.remove("input__invalid");
 }
 
-function checkValid(input) {
-  if (input.validity.valid) {
-    hideError(input);
-  } else {
-    showError(input, input.validationMessage);
-  }
+function validateInput(input) {
+  input.validity.valid
+    ? hideError(input)
+    : showError(input, input.validationMessage);
 }
 
 function enableButton(submitButton) {
@@ -153,27 +132,15 @@ function disableButton(submitButton) {
   submitButton.disabled = true;
 }
 
-function checkValidForm(submitButton, form) {
-  if (form.checkValidity()) {
-    enableButton(submitButton);
-  } else {
-    disableButton(submitButton);
-  }
-}
-
 function setEventListeners(form, settings) {
-  const inputLists = form.querySelectorAll(settings.inputSelector);
-  const submitButton = form.querySelector(settings.buttonSaveSelector);
-  checkValidForm(submitButton, formRequest);
-  inputLists.forEach(function (input) {
+  const inputList = form.querySelectorAll(settings.inputSelector);
+
+  inputList.forEach(function (input) {
     input.addEventListener("focusout", () => {
-      checkValid(input);
-      errorRadioInputs();
+      validateInput(input);
     });
     input.addEventListener("input", function () {
-      checkValid(input);
-      checkValidForm(submitButton, formRequest);
-      errorRadioInputs();
+      validateInput(input);
     });
   });
 }
@@ -192,3 +159,19 @@ const validationSettings = {
 };
 
 enableValidation(validationSettings);
+
+buttonSendRequest.addEventListener("click", (e) => {
+  e.preventDefault();
+  const submitButton = formRequest.querySelector(
+    validationSettings.buttonSaveSelector
+  );
+  const isValidForm = formRequest.checkValidity();
+  isValidForm ? enableButton(submitButton) : disableButton(submitButton);
+  const inputLists = formRequest.querySelectorAll(
+    validationSettings.inputSelector
+  );
+  inputLists.forEach((input) => validateInput(input));
+  if (buttonAgreement.checked && isValidForm) {
+    getContactUsFormData();
+  }
+});

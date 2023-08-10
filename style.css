@@ -447,7 +447,7 @@ input[type="checkbox"] {
   display: none;
 }
 
-label[for="agree"]::before {
+label[for="agreeInp"]::before {
   content: "";
   display: inline-block;
   width: 30px;
