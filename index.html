@@ -59,16 +59,19 @@
         <div class="contact__box">
           <img class="contact__img" src="./images/Women.jpg" alt="Employee" />
           <div>
-            <form class="contact__form" id="formInputs">
+            <form class="contact__form" id="formInputs" novalidate>
               <label class="contact__input-box">
                 Name*
                 <input
-                  class="contact__input input__border"
+                  class="contact__input input__border form-input"
                   placeholder="Your name"
                   name="name"
+                  id="nameInp"
                   type="text"
                   maxlength="40"
+                  required
                 />
+                <span class="input-error" id="error-nameInp"></span>
               </label>
               <div class="flexcolumn">
                 <label class="contact__select" for="select-box">
@@ -78,6 +81,7 @@
                   class="contact__input-box input__border"
                   id="select-box"
                   name="selectDesign"
+                  required
                 >
                   <option value="Interior Design" name="Design">
                     Interior Design
@@ -94,11 +98,13 @@
                 Phone*
                 <input
                   type="tel"
-                  class="contact__input input__border"
+                  class="contact__input input__border form-input"
                   placeholder="Your phone number"
                   name="phone"
                   id="tel"
+                  required
                 />
+                <span class="input-error" id="error-tel"></span>
               </label>
               <div class="flexcolumn">
                 <label class="contact__select" for="select-box"
@@ -108,6 +114,7 @@
                   class="contact__input-box input__border"
                   id="select-box"
                   name="selectLocation"
+                  required
                 >
                   <option>New York</option>
                   <option>Texas</option>
@@ -115,24 +122,28 @@
                 </select>
               </div>
 
-              <label class="contact__input-box">
+              <label for="emailInp" class="contact__input-box">
                 Email*
                 <input
-                  class="contact__input input__border"
+                  class="contact__input input__border form-input"
                   placeholder="Your working email"
-                  name="email"
+                  name="emailInp"
+                  id="emailInp"
                   type="email"
+                  required
                 />
+                <span class="input-error" id="error-emailInp"></span>
               </label>
-              <label class="contact__input-box">
+              <label class="contact__input-box" id="radio-label">
                 Preferred contact method
                 <div class="contact__radio-boxes">
                   <input
                     type="radio"
                     name="method"
                     value="Phone"
-                    class="contact__radio"
+                    class="contact__radio form-input"
                     id="phone"
+                    required
                   />
                   <label for="phone" class="contact__radio-box">Phone</label>
 
@@ -140,46 +151,55 @@
                     type="radio"
                     name="method"
                     value="Email"
-                    class="contact__radio"
-                    id="email-input"
+                    class="contact__radio form-input"
+                    id="email"
+                    required
                   />
-                  <label for="email-input" class="contact__radio-box"
-                    >Email</label
-                  >
+                  <label for="email" class="contact__radio-box">Email</label>
 
                   <input
                     type="radio"
                     name="method"
                     value="Viber"
-                    class="contact__radio"
+                    class="contact__radio form-input"
                     id="viber"
+                    required
                   />
                   <label for="viber" class="contact__radio-box">Viber</label>
                 </div>
+                <span class="radio-error" id="radErr"></span>
               </label>
               <label class="contact__input-box">
                 Message*
                 <textarea
-                  class="input__border"
+                  class="input__border form-input"
                   placeholder="Your message"
                   name="message"
                   maxlength="400"
+                  required
+                  id="messageInp"
                 ></textarea>
+                <span class="input-error" id="error-messageInp"></span>
               </label>
               <div class="flexbox contact__send-box">
                 <div class="contact__button-agree">
-                  <input
-                    type="checkbox"
-                    class="contact__button-check"
-                    id="agree"
-                    name="agree"
-                  />
-                  <label class="contact__label-agree" for="agree">
-                    <span class="contact__text-agree"
-                      >I agree to receive communications from Createx
-                      Construction Bureau.</span
-                    ></label
-                  >
+                  <div>
+                    <input
+                      type="checkbox"
+                      class="contact__button-check form-input"
+                      id="agree"
+                      name="agree"
+                      required
+                    />
+
+                    <label class="contact__label-agree" for="agree">
+                      <span class="contact__text-agree"
+                        >I agree to receive communications from Createx
+                        Construction Bureau.</span
+                      >
+                    </label>
+                    <span class="input-error" id="error-agree"></span>
+                  </div>
                 </div>
 
                 <button class="contact__request">SEND REQUEST</button>

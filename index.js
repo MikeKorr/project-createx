@@ -50,7 +50,7 @@ function getContactUsFormData() {
   console.log({
     name: formRequest.name.value,
     phone: inputPhone.value,
-    email: formRequest.email.value,
+    email: formRequest.emailInp.value,
     design: formRequest.selectDesign.value,
     location: formRequest.selectLocation.value,
     message: formRequest.message.value,
@@ -110,3 +110,85 @@ buttonSubscribe.addEventListener("click", (e) => {
   e.preventDefault();
   console.log(footerForm.footerInput.value);
 });
+
+//валидация
+const spanRad = document.getElementById("radErr");
+function errorRadioInputs() {
+  radioInput.forEach((input) => {
+    if (!input.checked) {
+      spanRad.textContent = input.validationMessage;
+    } else {
+      spanRad.textContent = "";
+    }
+  });
+}
+
+function showError(input, errorMessage) {
+  const spanId = `error-${input.id}`;
+  const errorField = document.getElementById(spanId);
+  errorField.textContent = errorMessage;
+  input.classList.add("input__invalid");
+}
+
+function hideError(input) {
+  const spanId = `error-${input.id}`;
+  const errorField = document.getElementById(spanId);
+  errorField.textContent = "";
+  input.classList.remove("input__invalid");
+}
+
+function checkValid(input) {
+  if (input.validity.valid) {
+    hideError(input);
+  } else {
+    showError(input, input.validationMessage);
+  }
+}
+
+function enableButton(submitButton) {
+  submitButton.disabled = false;
+}
+
+function disableButton(submitButton) {
+  submitButton.disabled = true;
+}
+
+function checkValidForm(submitButton, form) {
+  if (form.checkValidity()) {
+    enableButton(submitButton);
+  } else {
+    disableButton(submitButton);
+  }
+}
+
+function setEventListeners(form, settings) {
+  const inputLists = form.querySelectorAll(settings.inputSelector);
+  const submitButton = form.querySelector(settings.buttonSaveSelector);
+  checkValidForm(submitButton, formRequest);
+  inputLists.forEach(function (input) {
+    input.addEventListener("focusout", () => {
+      checkValid(input);
+      errorRadioInputs();
+    });
+    input.addEventListener("input", function () {
+      checkValid(input);
+      checkValidForm(submitButton, formRequest);
+      errorRadioInputs();
+    });
+  });
+}
+
+function enableValidation(settings) {
+  const formLists = document.querySelectorAll(settings.formSelector);
+  formLists.forEach(function (form) {
+    setEventListeners(form, settings);
+  });
+}
+
+const validationSettings = {
+  formSelector: ".contact__form",
+  inputSelector: ".form-input",
+  buttonSaveSelector: ".contact__request",
+};
+
+enableValidation(validationSettings);

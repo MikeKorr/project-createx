@@ -168,7 +168,7 @@ header {
   .flexcolumn {
     display: flex;
     flex-direction: column;
-    margin: 0 0 0 0;
+    margin: 0 0 20px 0;
   }
 }
 
@@ -345,7 +345,7 @@ main {
 }
 
 .contact__input-box {
-  margin: 0 30px 24px 20px;
+  margin: 0 30px 0 20px;
   display: flex;
   flex-direction: column;
   width: 285px;
@@ -496,7 +496,7 @@ label[for="phone"]::before {
   border-radius: 100%;
 }
 
-label[for="email-input"]::before {
+label[for="email"]::before {
   content: "";
   display: inline-block;
   width: 16px;
@@ -555,13 +555,10 @@ input[type="radio"]:checked + label::before {
 
 @media (max-width: 768px) {
   .contact__request {
-    width: 100px;
+    width: 55px;
     height: 44px;
-    border-radius: 4px;
-    border: none;
     color: #ffffff;
-    font-size: 14px;
-
+    font-size: 9px;
     margin: 0 25px 0 0;
   }
 }
@@ -569,7 +566,7 @@ input[type="radio"]:checked + label::before {
 .contact__send-box {
   margin: 40px 0 0 20px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   width: 616px;
 }
@@ -578,7 +575,7 @@ input[type="radio"]:checked + label::before {
   .contact__send-box {
     margin: 40px 0 0 0;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     width: 300px;
   }
@@ -598,13 +595,10 @@ input[type="radio"]:checked + label::before {
 
 @media (max-width: 768px) {
   .contact__request:disabled {
-    width: 100px;
+    width: 55px;
     height: 44px;
-    border-radius: 4px;
-    border: none;
     color: #ffffff;
-    font-size: 14px;
-
+    font-size: 9px;
     margin: 0 25px 0 0;
   }
 }
@@ -1047,4 +1041,35 @@ select {
   background-repeat: no-repeat;
   background-position-x: calc(100% - 20px);
   background-position-y: calc(100% - 14px);
+}
+
+.input-error {
+  margin: 0;
+  display: block;
+  color: #ff0000;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 20px;
+  min-height: 20px;
+  padding: 0;
+}
+
+.contact__button-agree .input-error {
+  margin-left: 27px;
+  min-height: 40px;
+}
+
+.input__invalid {
+  border: 1px solid red;
+}
+
+.radio-error {
+  margin: 5px 0 0 0;
+  display: block;
+  color: #ff0000;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 15px;
+  min-height: 20px;
+  padding: 0;
 }
